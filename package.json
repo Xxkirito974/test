@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "index.js": "^0.0.3",
-    "mysql": "^2.18.1",
+    "mysql": "github:mysqljs/mysql",
     "nodemon": "^3.0.1"
   }
 }
