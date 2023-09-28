@@ -1,3 +1,5 @@
+//connexion avec la base de données
+//Activer les fonctions dans la connexion 
 import mysql from 'mysql';
 let connection = mysql.createConnection({
     host : 'localhost',
@@ -14,6 +16,7 @@ let connection = mysql.createConnection({
    getTaskFromNameUser();
   });
 
+// faire afficher la liste des taches
   function getAllTasks() {
     const selection = "SELECT * FROM tasks";
     connection.query(selection, (err, result) => {
@@ -25,7 +28,7 @@ let connection = mysql.createConnection({
         console.log(result);
     })
   }
-
+//Faire afficher la liste des utilisateurs
   function getAlluser() {
     const selection = "SELECT * FROM user";
     connection.query(selection, (err, result) => {
@@ -39,7 +42,7 @@ let connection = mysql.createConnection({
   }
 
   
-  //getTaskFromNameUser 
+  //Faire afficher le nom de l'utilisateur avec les taches
   function getTaskFromNameUser() {
     const selection = "SELECT * FROM tasks INNER JOIN user ON user.id = tasks.owner_id";
     connection.query(selection, (err, result) => {
