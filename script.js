@@ -8,7 +8,7 @@
 //     database : 'youhou',
 // });
 import {connection} from '../node js/db.js'
-import {getAllTasks, getAlluser, getTaskFromNameUser} from './controllers/task.js'
+import {getAllTasks, getAlluser, getTaskFromNameUser, editAllTaskByNameUser, addTaskFromNameUser} from './controllers/task.js'
 
  connection.connect((err)=>{
    if(err) throw err
@@ -16,6 +16,8 @@ import {getAllTasks, getAlluser, getTaskFromNameUser} from './controllers/task.j
    getAllTasks();
    getAlluser();
    getTaskFromNameUser();
+   editAllTaskByNameUser();
+   addTaskFromNameUser(2, "repos", 1, 1);
   });
 
 // faire afficher la liste des taches
