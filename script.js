@@ -7,18 +7,18 @@
 //     password : '',
 //     database : 'youhou',
 // });
-import {connection} from '../node js/db.js'
-import {getAllTasks, getAlluser, getTaskFromNameUser, editAllTaskByNameUser, addTaskFromNameUser} from './controllers/task.js'
+// import {connection} from '../node js/db.js'
+// import {getAllTasks, getAlluser, getTaskFromNameUser, editAllTaskByNameUser, addTaskFromNameUser} from './controllers/task.js'
 
- connection.connect((err)=>{
-   if(err) throw err
-   console.log("ok")
-   getAllTasks();
-   getAlluser();
-   getTaskFromNameUser();
-   editAllTaskByNameUser();
-   addTaskFromNameUser(2, "repos", 1, 1);
-  });
+//  connection.connect((err)=>{
+//    if(err) throw err
+//    console.log("ok")
+//    getAllTasks();
+//    getAlluser();
+//    getTaskFromNameUser();
+//    editAllTaskByNameUser();
+//    addTaskFromNameUser(2, "repos", 1, 1);
+//   });
 
 // faire afficher la liste des taches
   // function getAllTasks() {
@@ -60,3 +60,25 @@ import {getAllTasks, getAlluser, getTaskFromNameUser, editAllTaskByNameUser, add
   // }
 
   
+import axios from "axios";
+import express from "express";
+const port = 5000
+const app = express();
+
+//Utilisation de res.send pour envoyer une repose HTML
+app.get("/", (req, res) => {
+    res.send("<h1>Ceci est une page HTML</h1>");
+});
+
+//Lancer le serveur 
+app.listen(port, () => console.log("Hello World"))
+
+//Fonction pour récupérer l'api 
+async function fetchJSON() {
+  try {
+    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
+    return response.data;
+  } catch (error) {
+    console.error(error);
+  }
+}
