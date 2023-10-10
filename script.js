@@ -60,25 +60,49 @@
   // }
 
   
-import axios from "axios";
-import express from "express";
-const port = 5000
-const app = express();
-
-//Utilisation de res.send pour envoyer une repose HTML
-app.get("/", (req, res) => {
+  import axios from "axios";
+  import express from "express";
+  const port = 8000;
+  const app = express();
+  
+  app.get("/", (req, res) => {
     res.send("<h1>Ceci est une page HTML</h1>");
-});
-
-//Lancer le serveur 
-app.listen(port, () => console.log("Hello World"))
-
-//Fonction pour récupérer l'api 
-async function fetchJSON() {
-  try {
-    const response = await axios.get('https://jsonplaceholder.typicode.com/posts');
-    return response.data;
-  } catch (error) {
-    console.error(error);
+  });
+  //Altération du JSON
+  async function alterJSON() {
+    try {
+      const response = await axios.get(
+        "https://jsonplaceholder.typicode.com/posts"
+      );
+      const remoteJSON = response.data;
+      const newItem = {
+        userId: 1,
+        id: 101,
+        title: "Nouveau contenu",
+        body: "Contenu du nouveau contenu",
+      };
+  
+      remoteJSON.push(newItem);
+  
+      return remoteJSON;
+    } catch (error) {
+      console.error(error);
+      throw error;
+    }
   }
-}
+
+  app.use(express.json());
+
+//Ajouter dans postman /api/posts
+  app.get("/api/posts", async (req, res) => {
+    try {
+      const modifiedJSON = await alterJSON();
+      res.json(modifiedJSON);
+    } catch (error) {
+      res.status(500).json({ error: "Erreur lors de la récupération des données." });
+    }
+  });
+  
+  // Lancer le serveur
+  app.listen(port, () => console.log("Le serveur est démarré sur le port " + port));
+  
