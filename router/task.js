@@ -1,7 +1,5 @@
 import express from 'express';
 
-
-
 //Creation de la route
 export const taskRouter = express.Router();
 

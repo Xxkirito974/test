@@ -60,54 +60,55 @@
   // }
 
   
-  import axios from "axios";
+  // import axios from "axios";
   import express from "express";
-  import apiRouter from './router/apiRouter.js'; //Importation le routeur
-  import taskRouter from './router/task.js'; 
+  
+  // import apiRouter from './router/apiRouter.js'; //Importation le routeur
+  import { taskRouter } from "./router/task.js";
   const port = 8000;
   const app = express();
   
   // Utilisez le routeur pour gérer les routes
-  app.use('/', apiRouter);
-  app.use('/tasks', taskRouter);
+  // app.use('/', apiRouter);
+  app.use(taskRouter);
 
   app.get("/", (req, res) => {
     res.send("<h1>Ceci est une page HTML</h1>");
   });
   //Altération du JSON
-  async function alterJSON() {
-    try {
-      const response = await axios.get(
-        "https://jsonplaceholder.typicode.com/posts"
-      );
-      const remoteJSON = response.data;
-      const newItem = {
-        userId: 1,
-        id: 101,
-        title: "Nouveau contenu",
-        body: "Contenu du nouveau contenu",
-      };
+  // async function alterJSON() {
+  //   try {
+  //     const response = await axios.get(
+  //       "https://jsonplaceholder.typicode.com/posts"
+  //     );
+  //     const remoteJSON = response.data;
+  //     const newItem = {
+  //       userId: 1,
+  //       id: 101,
+  //       title: "Nouveau contenu",
+  //       body: "Contenu du nouveau contenu",
+  //     };
   
-      remoteJSON.push(newItem);
+  //     remoteJSON.push(newItem);
   
-      return remoteJSON;
-    } catch (error) {
-      console.error(error);
-      throw error;
-    }
-  }
+  //     return remoteJSON;
+  //   } catch (error) {
+  //     console.error(error);
+  //     throw error;
+  //   }
+  // }
 
-  app.use(express.json());
+  // app.use(express.json());
 
 //Ajouter dans postman /api/posts
-  app.get("/api/posts", async (req, res) => {
-    try {
-      const modifiedJSON = await alterJSON();
-      res.json(modifiedJSON);
-    } catch (error) {
-      res.status(500).json({ error: "Erreur lors de la récupération des données." });
-    }
-  });
+  // app.get("/api/posts", async (req, res) => {
+  //   try {
+  //     const modifiedJSON = await alterJSON();
+  //     res.json(modifiedJSON);
+  //   } catch (error) {
+  //     res.status(500).json({ error: "Erreur lors de la récupération des données." });
+  //   }
+  // });
   
   // Lancer le serveur
   app.listen(port, () => console.log("Le serveur est démarré sur le port " + port));

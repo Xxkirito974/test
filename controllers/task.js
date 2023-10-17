@@ -1,27 +1,29 @@
 import {connection} from '../db.js'
 
 // faire afficher la liste des taches
-export function getAllTasks() {
+export function getAllTasks(req, res) {
     const selection = "SELECT * FROM tasks";
     connection.query(selection, (err, result) => {
         if(err) {
             console.error("Essaie encore !!!", err);
-            return;
+            res.send('Erreur essaie encore')
         }
         console.log("liste des taches");
         console.log(result);
+        res.send(result);
     })
   }
 //Faire afficher la liste des utilisateurs
-  export function getAlluser() {
+  export function getAlluser(req, res) {
     const selection = "SELECT * FROM user";
     connection.query(selection, (err, result) => {
         if(err) {
             console.error("Essaie encore !!!", err);
-            return;
+            res.send('Erreur essaie encore')
         }
         console.log("liste des utilisateurs");
         console.log(result);
+        res.send(result);
     })
   }
 
