@@ -62,9 +62,15 @@
   
   import axios from "axios";
   import express from "express";
+  import apiRouter from './router/apiRouter.js'; //Importation le routeur
+  import taskRouter from './router/task.js'; 
   const port = 8000;
   const app = express();
   
+  // Utilisez le routeur pour gérer les routes
+  app.use('/', apiRouter);
+  app.use('/tasks', taskRouter);
+
   app.get("/", (req, res) => {
     res.send("<h1>Ceci est une page HTML</h1>");
   });
