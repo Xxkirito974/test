@@ -29,31 +29,71 @@ export function getAllTasks(req, res) {
 
   
   //Faire afficher le nom de l'utilisateur avec les taches
-  export function getTaskFromNameUser() {
+  export function getTaskFromNameUser(req, res) {
     const selection = "SELECT * FROM tasks INNER JOIN user ON user.id = tasks.owner_id";
     connection.query(selection, (err, result) => {
       if(err) {
         console.error("Essaie encore !!!", err);
-        return;
+        res.send('Essaie encore');
       }
       console.log("Liste de tache par user");
       console.log(result);
+      res.send(result);
     })
   }
 
   //Faire un edit pour mettre un tache a jour
 
-  export function editAllTaskByNameUser() {
+  export function editAllTaskByNameUser(req, res) {
     const selection = "SELECT * FROM tasks WHERE owner_id = 1";
     connection.query(selection, (err, result) => {
       if(err) {
         console.error("Esssaie encore !!!!", err);
-        result;
+        res.send('Essaie encore');
       }
       console.log('Tache mises à jour avec succès')
       console.log(result);
+      res.send(result)
     })
   }
+
+  //Faire deleteTaskById
+  export function deleteTaskByID(id) {
+    const selection = "DELETE FROM tasks WHERE id = ?";
+    connection.query(selection, [id], (err, result) => {
+      if(err) {
+        console.error("Essaie encore !!!", err);
+      }
+      console.log("task with id "+id+" deleted")
+    });
+  }
+
+  //Faire postTaskById
+  export function postTaskById(req, res) {
+
+    try {
+      //recuperation de l'id de la teche dans l'url
+      const id = req.params.id 
+      const description = req.body.description
+      const completed = req.body.completed
+
+      console.log("Allé yes")
+      //update tasks table from id
+      const selection = "UPDATE FROM tasks SET description = ?, completed = ? WHERE id = ?"
+      connection.query(selection, [description, completed, id], (err, result) => {
+        if(err) throw err
+
+        //s'il y a pas d'erreur on renvoi dans la réponse
+        res.status(201).send(result)
+        console.log(result)
+      });
+    } catch (err) {
+      res.send(err)
+    }
+  }
+
+
+
 
  // Fonction pour ajouter une tâche à un utilisateur par propriétaire
 export function addTaskFromNameUser(taskId, taskDescription, taskComplete, ownerId) {
