@@ -67,32 +67,43 @@ export function getAllTasks(req, res) {
       console.log("task with id "+id+" deleted")
     });
   }
-
-  //Faire postTaskById
-  export function postTaskById(req, res) {
-
-    try {
-      //recuperation de l'id de la teche dans l'url
-      const id = req.params.id 
-      const description = req.body.description
-      const completed = req.body.completed
-
-      console.log("Allé yes")
-      //update tasks table from id
-      const selection = "UPDATE FROM tasks SET description = ?, completed = ? WHERE id = ?"
-      connection.query(selection, [description, completed, id], (err, result) => {
-        if(err) throw err
-
-        //s'il y a pas d'erreur on renvoi dans la réponse
-        res.status(201).send(result)
-        console.log(result)
-      });
-    } catch (err) {
-      res.send(err)
-    }
+  // Faire editTaskbyId
+  export function editTaskbyId(id) {
+    const selection = "UPDATE tasks WHERE id = ?";
+    connection.query(selection, [id], (err, result) => {
+      if(err) {
+        console.error("Essaie encore !!!", err);
+      }
+      console.log("task with id "+id+" edit")
+    });
   }
 
 
+  //Faire postTaskById
+  // export function postTaskById(req, res) {
+
+  //   try {
+  //     //recuperation de l'id de la teche dans l'url
+  //     const id = req.params.id 
+  //     const description = req.body.description
+  //     const completed = req.body.completed
+
+  //     console.log("Allé yes")
+  //     //update tasks table from id
+  //     const selection = "UPDATE FROM tasks SET description = ?, completed = ? WHERE id = ?"
+  //     connection.query(selection, [description, taskComplete, taskId], (err, result) => {
+  //       if(err) throw err
+
+  //       //s'il y a pas d'erreur on renvoi dans la réponse
+  //       res.status(201).send(result)
+  //       console.log(result)
+  //     });
+  //   } catch (err) {
+  //     res.send(err)
+  //   }
+  // }
+
+//Faire editTaskbyId
 
 
  // Fonction pour ajouter une tâche à un utilisateur par propriétaire
