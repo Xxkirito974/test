@@ -43,7 +43,7 @@ export function getAllTasks(req, res) {
   }
 
   //Faire un edit pour mettre un tache a jour
-
+  
   export function editAllTaskByNameUser(req, res) {
     const selection = "SELECT * FROM tasks WHERE owner_id = 1";
     connection.query(selection, (err, result) => {
