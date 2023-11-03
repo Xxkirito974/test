@@ -1,5 +1,5 @@
-import {connection} from '../db.js'
-
+//import {connection} from '../db.js'
+import { sequelize } from '../db.js';
 // faire afficher la liste des taches
 export function getAllTasks(req, res) {
     const selection = "SELECT * FROM tasks";
